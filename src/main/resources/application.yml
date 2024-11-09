@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: JavaTest
+  config:
+    import: "classpath:application-credentials.yml"
+  # db ??
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/javatest
+    username: postgres
+    password: 123456789a
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+
+server:
+  port: 8080
+
+base-package:
+  jpa: "com.fortickets.userservice"
