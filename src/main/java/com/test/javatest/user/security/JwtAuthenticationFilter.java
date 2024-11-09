@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getJwtTokenFromHeader(req);
         if (token == null) {
-            unauthorizedResponse(res, "JWT 토큰이 없습니다.");
+            unauthorizedResponse(res);
             return;
         }
 
@@ -66,15 +66,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(req, res);
 
         } catch (ExpiredJwtException e) {
-            unauthorizedResponse(res, "토큰이 만료되었습니다.");
+            unauthorizedResponse(res);
         } catch (UnsupportedJwtException e) {
-            unauthorizedResponse(res, "지원되지 않는 형식의 JWT입니다.");
+            unauthorizedResponse(res);
         } catch (MalformedJwtException e) {
-            unauthorizedResponse(res, "JWT의 구조가 손상되었거나 올바르지 않습니다.");
+            unauthorizedResponse(res);
         } catch (SignatureException e) {
-            unauthorizedResponse(res, "JWT 서명이 유효하지 않습니다.");
+            unauthorizedResponse(res);
         } catch (IllegalArgumentException e) {
-            unauthorizedResponse(res, "입력값이 잘못되었습니다.");
+            unauthorizedResponse(res);
         }
     }
 
@@ -104,10 +104,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     // JWT 검증 실패 시 응답 처리
-    private void unauthorizedResponse(HttpServletResponse res, String message) throws IOException {
+    private void unauthorizedResponse(HttpServletResponse res) throws IOException {
         res.setStatus(HttpStatus.UNAUTHORIZED.value());
         res.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        String responseBody = "{\"error\": \"" + message + "\"}";
+        String responseBody = "{\"error\": \" 인증에 실패하였습니다. \"}";
         res.getWriter().write(responseBody);
     }
 }
