@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: JavaTest
+  config:
+    import: "classpath:application-credentials.yml"
+  # db ??
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/javatest
+    username: postgres
+    password: 123456789a
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true # sql ??
+        format_sql: true # SQL ? ???? ??
+        highlight_sql: true # SQL ? ? ??
+  # docker compose lifecycle ??
+  docker:
+    compose:
+      lifecycle-management: start_and_stop # start_only, start_and_stop ??? ???, ??? ?? ? ???? ?? ??? ??? ? ??
+      start:
+        command: up
+      stop:
+        command: down
+        timeout: 1m
+      file: application/user-service/docker-compose.yml
+
+
+server:
+  port: 8080
+
+# auditing entity scan? ?? base package ??
+base-package:
+  jpa: "com.fortickets.userservice"
