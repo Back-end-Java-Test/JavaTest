@@ -1,6 +1,5 @@
 package com.test.javatest.user.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +14,6 @@ public class SignUpRes {
 
     // Authority 클래스
     @Getter
-    @Setter
     public static class Authority {
         private String authorityName;
 
@@ -23,6 +21,4 @@ public class SignUpRes {
             this.authorityName = authorityName;
         }
     }
-
-
 }
