@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class LoginRes {
-    private String token;
 
+    private String token;
     public LoginRes(String token) {
         this.token = token;
     }

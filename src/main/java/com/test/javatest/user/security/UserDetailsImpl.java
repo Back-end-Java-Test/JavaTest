@@ -62,7 +62,6 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    // User 객체에서 user_id를 반환하는 메서드
     public Long getUserId() {
         return user.getUserId();
     }
