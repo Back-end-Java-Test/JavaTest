@@ -43,11 +43,4 @@ public class User  {
         this.password = password;
         this.role = role;
     }
-
-    // 생성자 추가
-    public User(String nickname, String password, UserRoleEnum role) {
-        this.nickname = nickname;
-        this.password = password;
-        this.role = role;
-    }
 }
