@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 애플리케이션 서비스
+  app:
+    build: .  # Dockerfile이 있는 디렉토리에서 빌드
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/javatest
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456789a
+    depends_on:
+      - postgres  # postgres 서비스가 먼저 실행되어야 함
+    ports:
+      - "8080:8080"  # 애플리케이션이 8080 포트에서 실행됨
+    networks:
+      - javatest-network
+
+  # PostgreSQL 서비스
+  postgres:
+    image: postgres:latest
+    container_name: javatest-db
+    environment:
+      POSTGRES_DB: javatest
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789a
+    ports:
+      - "5432:5432"  # PostgreSQL이 5432 포트에서 실행됨
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  # 데이터를 지속적으로 저장
+    networks:
+      - javatest-network
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  javatest-network:
+    driver: bridge

@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: JavaTest
+  config:
+    import: "classpath:application-credentials.yml"
+  # db ??
+  datasource:
+    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://postgres:5432/javatest
+    url: jdbc:postgresql://localhost:5432/javatest
+    username: postgres
+    password: 123456789a
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+
+server:
+  port: 8080
+
+base-package:
+  jpa: "com.fortickets.userservice"
+
+springdoc:
+  default-consumes-media-type: application/json;charset=UTF-8 # 요청 객체 Data Type
+  default-produces-media-type: application/json;charset=UTF-8 # 응답 객체 Data Type
+  swagger-ui:
+    path: /
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+
