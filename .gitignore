@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### secret-key ###
-**/application-credentials.yml
+#**/application-credentials.yml

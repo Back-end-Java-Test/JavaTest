@@ -1,7 +1,9 @@
 package com.test.javatest.user.controller;
 
 import com.test.javatest.user.dto.LoginReq;
+import com.test.javatest.user.dto.LoginRes;
 import com.test.javatest.user.dto.SignUpReq;
+import com.test.javatest.user.dto.SignUpRes;
 import com.test.javatest.user.security.JwtUtil;
 import com.test.javatest.user.service.AuthService;
 import jakarta.validation.Valid;
@@ -23,18 +25,20 @@ public class AuthController {
 
     // 회원가입
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signUp(@Valid @RequestBody SignUpReq req) {
-        authService.signUp(req);
-        return ResponseEntity.ok("회원가입을 성공하였습니다.");
+    public ResponseEntity<SignUpRes> signUp(@Valid @RequestBody SignUpReq req) {
+        SignUpRes signUpRes = authService.signUp(req);
+        return ResponseEntity.ok(signUpRes);
     }
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginReq req) {
-        String token = authService.login(req);
-        // 토큰을 포함하여 응답 반환
+    public ResponseEntity<LoginRes> login(@RequestBody LoginReq req) {
+        LoginRes loginRes = authService.login(req); // LoginRes 객체 반환
+        String token = loginRes.getToken(); // 토큰 추출
+
+        // 응답 본문에 LoginRes 객체 반환하고, 헤더에 토큰 추가
         return ResponseEntity.ok()
             .header(JwtUtil.AUTHORIZATION_HEADER, token) // Authorization 헤더에 토큰 추가
-            .body("로그인을 성공하였습니다.");
+            .body(loginRes); // 응답 본문에 LoginRes 반환
     }
 }

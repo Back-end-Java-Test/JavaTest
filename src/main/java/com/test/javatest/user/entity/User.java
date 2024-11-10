@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "users")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class User  {
 
     @Id
@@ -40,6 +40,13 @@ public class User  {
     public User(String nickname, String username, String password, UserRoleEnum role) {
         this.nickname = nickname;
         this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    // 생성자 추가
+    public User(String nickname, String password, UserRoleEnum role) {
+        this.nickname = nickname;
         this.password = password;
         this.role = role;
     }
