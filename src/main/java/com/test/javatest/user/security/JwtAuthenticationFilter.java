@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
         String path = req.getRequestURI();
 
-        // 로그인, 회원가입 요청은 필터를 통과하도록 설정
+        // 로그인, 회원가입 요청 및 Swagger UI 관련 요청은 필터를 통과하도록 설정
         if (isAuthorizationPassRequest(path)) {
             filterChain.doFilter(req, res);
             return;
@@ -87,9 +87,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    // 로그인 및 회원가입 필터 통과
+    // 로그인, 회원가입 요청 및 Swagger UI 관련 경로를 필터에서 통과
     private boolean isAuthorizationPassRequest(String path) {
-        return path.startsWith("/api/auth/login") || path.startsWith("/api/auth/sign-up");
+        // Swagger UI 경로를 추가하여 인증 우회
+        return path.startsWith("/api/auth/login") || path.startsWith("/api/auth/sign-up")
+            || path.startsWith("/swagger-ui/") // Swagger UI 경로 예외 추가
+            || path.startsWith("/v3/api-docs/"); // Swagger API Docs 경로 예외 추가
     }
 
     // 시크릿키 생성
