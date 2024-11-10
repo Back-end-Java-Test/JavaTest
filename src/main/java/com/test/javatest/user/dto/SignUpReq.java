@@ -20,4 +20,11 @@ public class SignUpReq {
     @Size(min = 1, max = 10, message = "비밀번호는 최소 1자 최대 10자 입니다.")
     private String password;
 
+    // 필요한 매개변수를 받는 생성자 추가
+    public SignUpReq(String nickname, String username, String password) {
+        this.nickname = nickname;
+        this.username = username;
+        this.password = password;
+    }
+
 }
